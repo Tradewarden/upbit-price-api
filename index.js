@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // use Render's default installed Chromium
-const CHROME_PATH = process.env.CHROME_BIN || '/usr/bin/chromium-browser';
+const CHROME_PATH = process.env.CHROME_BIN || '/usr/bin/google-chrome-stable';
 
 app.get('/usdt', async (req, res) => {
   try {
