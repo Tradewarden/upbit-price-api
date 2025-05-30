@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,9 +7,11 @@ const PORT = process.env.PORT || 3000;
 app.get('/usdt', async (req, res) => {
   try {
     const browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+  executablePath: '/usr/bin/chromium-browser', // or '/usr/bin/google-chrome' on some builds
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  headless: 'new'
+});
+
     const page = await browser.newPage();
     await page.goto('https://th.upbit.com/exchange?code=CRIX.UPBITC_THB-USDT', {
       waitUntil: 'networkidle2'
