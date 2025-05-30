@@ -4,13 +4,16 @@ const puppeteer = require('puppeteer-core');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// use Render's default installed Chromium
+const CHROME_PATH = process.env.CHROME_BIN || '/usr/bin/chromium-browser';
+
 app.get('/usdt', async (req, res) => {
   try {
     const browser = await puppeteer.launch({
-  executablePath: '/usr/bin/chromium-browser', // or '/usr/bin/google-chrome' on some builds
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  headless: 'new'
-});
+      executablePath: CHROME_PATH,
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
 
     const page = await browser.newPage();
     await page.goto('https://th.upbit.com/exchange?code=CRIX.UPBITC_THB-USDT', {
